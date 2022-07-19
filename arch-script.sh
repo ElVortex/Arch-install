@@ -42,5 +42,5 @@ pacstrap /mnt base base-devel linux linux-firmware vim nano sudo amd-ucode
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
-cp -R /root/Arch-install /mnt/root/
+cp -R /root/Arch-install /mnt/root/Arch-install
 arch-chroot /mnt /root/Arch-install/setup.sh
