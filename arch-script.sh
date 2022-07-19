@@ -27,8 +27,8 @@ mkfs.btrfs /dev/sda2
 mount -v /dev/sda2 /mnt
 cd /mnt
 pwd
-btrfs subvolume create /@
-btrfs subvolume create /@home
+btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
 
 cd /
 pwd
