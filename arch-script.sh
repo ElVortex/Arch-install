@@ -32,19 +32,19 @@ btrfs subvolume create /mnt/@home
 
 cd /
 pwd
-umount -v /mnt
+umount /mnt
 
-mount -ov noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@ /dev/sda2 /mnt
+mount -o noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@ /dev/sda2 /mnt
 mkdir -v /mnt/{boot,home}
-mount -ov noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@home /dev/sda2 /mnt/home
+mount -o noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@home /dev/sda2 /mnt/home
 
 mkdir -v /mnt/boot/EFI
-mount -v /dev/sda1 /mnt/boot/EFI
+mount /dev/sda1 /mnt/boot/EFI
 
 pacstrap /mnt base base-devel linux linux-firmware vim nano sudo amd-ucode
 
 genfstab -U /mnt >> /mnt/etc/fstab
 cat /mnt/etc/fstab
 
-cp -Rv /root/Arch-install /mnt/root/Arch-install
+cp -R /root/Arch-install /mnt/root/Arch-install
 arch-chroot /mnt /root/Arch-install/setup.sh
