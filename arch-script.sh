@@ -4,7 +4,9 @@
 
 # Find the name of the folder the scripts are in
 
+pwd
 cd ~
+pwd
 
 loadkeys br-abnt2
 
@@ -22,25 +24,27 @@ sgdisk -n 2::-0 --typecode=2:8300 /dev/sda
 mkfs.fat -F 32 /dev/sda1
 mkfs.btrfs /dev/sda2
 
-mount /dev/sda2 /mnt
+mount -v /dev/sda2 /mnt
 cd /mnt
-
+pwd
 btrfs subvolume create /@
 btrfs subvolume create /@home
 
 cd /
-umount /mount
+pwd
+umount -v /mnt
 
-mount -o noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@ /dev/sda2 /mnt
-mkdir /mnt/{boot,home}
-mount -o noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@home /dev/sda2 /mnt/home
+mount -ov noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@ /dev/sda2 /mnt
+mkdir -v /mnt/{boot,home}
+mount -ov noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@home /dev/sda2 /mnt/home
 
-mkdir /mnt/boot/EFI
-mount /dev/sda1 /mnt/boot/EFI
+mkdir -v /mnt/boot/EFI
+mount -v /dev/sda1 /mnt/boot/EFI
 
 pacstrap /mnt base base-devel linux linux-firmware vim nano sudo amd-ucode
 
 genfstab -U /mnt >> /mnt/etc/fstab
+cat /mnt/etc/fstab
 
-cp -R /root/Arch-install /mnt/root/Arch-install
+cp -Rv /root/Arch-install /mnt/root/Arch-install
 arch-chroot /mnt /root/Arch-install/setup.sh
